@@ -1,5 +1,8 @@
 # smartnation
 lee hsien loong will be proud
 
-## Starting the web service
-./mvnw spring-boot:run
+# Installation
+## Install Maven
+https://maven.apache.org/download.cgi
+## Install packages
+```mvn install```
