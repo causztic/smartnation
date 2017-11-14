@@ -31,9 +31,10 @@ public class ClassController {
     @RequestMapping(value="/classes/{klass}", method=RequestMethod.GET)
     public String getClasses(@PathVariable String klass){
     	String result = null;
+    	HttpURLConnection connection = null;
     	try {
 			URL timetableURL = new URL("http://sutd-timetable.herokuapp.com/group_sections/?" + klass);
-			HttpURLConnection connection = (HttpURLConnection) timetableURL.openConnection();
+			connection = (HttpURLConnection) timetableURL.openConnection();
 			connection.connect();
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK){
 				JsonElement root = new JsonParser().parse(new InputStreamReader(connection.getInputStream()));
@@ -43,6 +44,8 @@ public class ClassController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			connection.disconnect();
 		}
     	return result;
     }
