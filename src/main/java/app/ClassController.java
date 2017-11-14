@@ -43,6 +43,10 @@ public class ClassController {
     	return result;
     }
     
+    /*
+     * Get the class schedule for this week.
+     * @param klass		the klass to get. It should be one of CohortClass.CLASSES.
+     */
     @RequestMapping(value="/classes/{klass}/this_week", method=RequestMethod.GET)
     public String getClassesThisWeek(@PathVariable String klass){
     	String result = null;
