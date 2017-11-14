@@ -30,6 +30,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+    		<groupId>org.springframework.data</groupId>
+    		<artifactId>spring-data-rest-core</artifactId>
+    		<version>3.0.1.RELEASE</version>
+		</dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -39,11 +44,6 @@
             <artifactId>json-path</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-    		<groupId>org.liquibase</groupId>
-    		<artifactId>liquibase-maven-plugin</artifactId>
-    		<version>3.5.3</version>
-		</dependency>
 		<dependency>
   			<groupId>org.postgresql</groupId>
   			<artifactId>postgresql</artifactId>
@@ -67,12 +67,14 @@
 
 
     <build>
-    	<pluginManagement>
-        <plugins>
-            <plugin>
+    	<plugins>
+    	    <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+    	</plugins>
+    	<pluginManagement>
+        <plugins>
        		<plugin>
            		<groupId>org.liquibase</groupId>
            		<artifactId>liquibase-maven-plugin</artifactId>
