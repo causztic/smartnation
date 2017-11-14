@@ -8,7 +8,7 @@ create table "area" (
 
 create table "statistic" (
   id varchar(255) not null,
-  "data_date" timestamp not null,
+  data_date timestamp not null,
   area_id varchar(255) not null references area (id),
   primary key (id)
 );

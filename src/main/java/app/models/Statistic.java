@@ -1,4 +1,4 @@
-package models;
+package app.models;
 
 import lombok.Data;
 
@@ -12,8 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.*;
 
-@Data
 @Entity
+@Data
 public class Statistic {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

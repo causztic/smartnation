@@ -3,14 +3,9 @@ package app;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import java.util.TimeZone;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +18,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import models.CohortClass;
+import app.models.CohortClass;
 
 @RestController
 public class ClassController {
