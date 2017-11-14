@@ -16,9 +16,10 @@ public abstract class Area {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@NotNull
 	private double longitude;
+	@NotNull
 	private double latitude;
-	
 	@NotNull
 	private String name;
 	
