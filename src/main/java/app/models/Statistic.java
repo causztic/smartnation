@@ -9,8 +9,14 @@ import javax.persistence.Entity;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.*;
 
+import com.google.gson.Gson;
+import com.google.gson.annotations.JsonAdapter;
+
+import adapters.StatisticAdapter;
+
 @Entity
 @Data
+@JsonAdapter(StatisticAdapter.class)
 public class Statistic {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,4 +33,9 @@ public class Statistic {
 			@MetaValue(targetEntity = MeetingArea.class, value = "MeetingArea") })
 	@JoinColumn(name = "area_id")
 	private Area area;
+	
+	@Override
+	public String toString(){
+		return new Gson().toJson(this);
+	}
 }
