@@ -23,7 +23,7 @@ import app.models.CohortClass;
 @RestController
 public class ClassController {
 
-    @RequestMapping("/classes")
+    @RequestMapping(value="/classes", produces="application/json")
     public String[] index() {
     	return CohortClass.CLASSES;
     }
@@ -32,7 +32,7 @@ public class ClassController {
      * Get the class schedule for a particular class.
      * @param klass		the class to get. It should be one of CohortClass.CLASSES.
      */
-    @RequestMapping(value="/classes/{klass}", method=RequestMethod.GET)
+    @RequestMapping(value="/classes/{klass}", method=RequestMethod.GET, produces="application/json")
     public String getClasses(@PathVariable String klass){
     	String result = getTimetable(klass).toString();
     	return result;
@@ -42,7 +42,7 @@ public class ClassController {
      * Get the class schedule for this week.
      * @param klass		the klass to get. It should be one of CohortClass.CLASSES.
      */
-    @RequestMapping(value="/classes/{klass}/this_week", method=RequestMethod.GET)
+    @RequestMapping(value="/classes/{klass}/this_week", method=RequestMethod.GET, produces="application/json")
     public String getClassesThisWeek(@PathVariable String klass){
     	String result = null;
     	

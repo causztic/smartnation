@@ -2,12 +2,14 @@ package app;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import app.models.Area;
 import app.repositories.FoodAreaRepository;
@@ -21,7 +23,7 @@ public class AreaController {
 	@Autowired
 	private MeetingAreaRepository ma;
 	
-	@RequestMapping(value="/area/{type}", method=RequestMethod.GET)
+	@RequestMapping(value="/area/{type}", method=RequestMethod.GET, produces ="application/json")
 	public String findAreaByType(@PathVariable String type){
 		List<Area> area = new ArrayList<>();
 		if (type.equals("food"))
@@ -29,7 +31,6 @@ public class AreaController {
 		else
 			ma.findAll().forEach(area::add);
 		
-		return area.stream().map(Area::toString)
-				.collect(Collectors.joining(", "));
+		return new Gson().toJson(area, new TypeToken<ArrayList<Area>>() {}.getType());
 	}
 }
