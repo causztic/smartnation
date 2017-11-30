@@ -2,7 +2,7 @@ package app.repositories;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import app.models.Area;
+import app.models.FoodArea;
 
 @Transactional
-public interface FoodAreaRepository extends BaseRepository<Area> { }
+public interface FoodAreaRepository extends BaseRepository<FoodArea> { }
