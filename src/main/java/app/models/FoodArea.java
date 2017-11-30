@@ -8,8 +8,7 @@ import lombok.Data;
 @Entity
 public class FoodArea extends Area {
 	
-	public FoodArea(){
-		
+	public String toString(){
+		return super.toString();
 	}
-	
 }

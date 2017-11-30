@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import com.google.gson.Gson;
+
 import lombok.Data;
 
 @Entity
@@ -22,5 +24,10 @@ public abstract class Area {
 	private double latitude;
 	@NotNull
 	private String name;
+	
+	@Override
+	public String toString(){
+		return new Gson().toJson(this);
+	}
 	
 }

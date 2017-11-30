@@ -6,9 +6,8 @@ import lombok.Data;
 @Data
 @Entity
 public class MeetingArea extends Area {
-	
-	public MeetingArea(){
-		
-	}
 
+	public String toString(){
+		return super.toString();
+	}
 }
