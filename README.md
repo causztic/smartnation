@@ -13,5 +13,4 @@ https://projectlombok.org/download
 
 ## Install packages and migrate database
 ```mvn install```
-```mvn flyway:migrate```
 ```mvn package && java -jar target/smartnation-0.1.0.jar``` 
