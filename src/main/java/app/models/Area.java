@@ -24,6 +24,7 @@ public abstract class Area {
 	private double latitude;
 	@NotNull
 	private String name;
+	private String image;
 	
 	@Override
 	public String toString(){

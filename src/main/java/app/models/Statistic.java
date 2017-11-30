@@ -24,6 +24,9 @@ public class Statistic {
 
 	@NotNull
 	private Date data_date;
+	
+	@NotNull
+	private int count;
 
 	@NotNull
 	@ManyToOne
