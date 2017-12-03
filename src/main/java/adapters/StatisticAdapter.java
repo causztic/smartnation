@@ -14,15 +14,15 @@ public class StatisticAdapter extends TypeAdapter<Statistic>{
     public void write(JsonWriter writer, Statistic value) throws IOException {
         writer.beginObject();
 
-        writer.name("id").value(value.getId());
-        writer.name("date").value(value.getData_date().toString());  
-        writer.name("area").value(value.getArea().getName());
+        // writer.name("id").value(value.getId());
+        if (value.getData_date() != null)
+        	writer.name("date").value(value.getData_date().toString());
+        writer.name("count").value(value.getCount());
         writer.endObject();
     }
 
     @Override
     public Statistic read(JsonReader in) throws IOException {
-        // do something you need
         return null;
     }
 }

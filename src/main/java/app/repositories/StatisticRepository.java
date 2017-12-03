@@ -28,12 +28,12 @@ public interface StatisticRepository extends PagingAndSortingRepository<Statisti
 		
 		@RestResource
 		@Query(
-				value = "SELECT AVG(count), date_part(:part, data_date) as grp"
+				value = "SELECT AVG(count) as avg_count, MIN(data_date) as date, date_part(:part, data_date) as grp"
 						+ " FROM statistic WHERE area_id = :area "
 						+ " AND data_date BETWEEN :from AND :to "
 						+ " GROUP BY grp",
 				nativeQuery = true)
-		List<Statistic> averagePerHour(@Param("area") int area, 
+		List<Object> averagePerHour(@Param("area") int area, 
 				@Param("from") Timestamp from,
 				@Param("to") Timestamp to, 
 				@Param("part") String part);

@@ -2,9 +2,11 @@ package app;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +34,7 @@ public class StatisticController {
 				case "hour":
 				case "minute":
 				case "day":
-					List<Statistic> stats = repo.averagePerHour(area, from, to, part);
+					List<Object> stats = repo.averagePerHour(area, from, to, part);
 					return new Gson().toJson(stats, new TypeToken<ArrayList<Statistic>>() {}.getType());
 				default:
 					throw new IllegalArgumentException("Part has to be either 'hour', 'minute', or 'day'.");

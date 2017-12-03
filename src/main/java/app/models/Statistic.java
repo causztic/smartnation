@@ -27,6 +27,8 @@ public class Statistic {
 	
 	@NotNull
 	private int count;
+	private transient double avg_count;
+	private transient Date min_date;
 
 	@NotNull
 	@ManyToOne
@@ -41,4 +43,5 @@ public class Statistic {
 	public String toString(){
 		return new Gson().toJson(this);
 	}
+
 }
