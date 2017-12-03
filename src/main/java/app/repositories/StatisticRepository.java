@@ -22,7 +22,7 @@ public interface StatisticRepository extends PagingAndSortingRepository<Statisti
 		
 		@RestResource
 		@Query(
-				value = "SELECT * FROM statistic WHERE area_id = :area AND data_date BETWEEN :to AND :from ",
+				value = "SELECT * FROM statistic WHERE area_id = :area AND data_date BETWEEN :from AND :to ",
 				nativeQuery = true)
 		List<Statistic> findBetweenDates(@Param("area") int area, @Param("from") Timestamp from, @Param("to") Timestamp to);
 		
@@ -30,11 +30,11 @@ public interface StatisticRepository extends PagingAndSortingRepository<Statisti
 		@Query(
 				value = "SELECT AVG(count), date_part(:part, data_date) as grp"
 						+ " FROM statistic WHERE area_id = :area "
-						+ " AND data_date BETWEEN :to AND :from "
+						+ " AND data_date BETWEEN :from AND :to "
 						+ " GROUP BY grp",
 				nativeQuery = true)
 		List<Statistic> averagePerHour(@Param("area") int area, 
-				@Param("to") Timestamp to, 
 				@Param("from") Timestamp from,
+				@Param("to") Timestamp to, 
 				@Param("part") String part);
 }
