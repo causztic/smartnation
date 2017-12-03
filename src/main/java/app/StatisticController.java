@@ -19,7 +19,7 @@ public class StatisticController {
 	private StatisticRepository repo;
 	
 	@RequestMapping(value="/stats/{area}", method=RequestMethod.GET, produces="application/json")
-	public String getStatsByArea(@PathVariable String area){
+	public String getStatsByArea(@PathVariable int area){
 		List<Statistic> stats = repo.findByArea(area);
 		return new Gson().toJson(stats, new TypeToken<ArrayList<Statistic>>() {}.getType());
 	}

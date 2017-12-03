@@ -15,7 +15,7 @@ public interface StatisticRepository extends PagingAndSortingRepository<Statisti
 		
 		@RestResource
 		@Query(
-				value = "SELECT * FROM statistic WHERE area_id = (SELECT a.id FROM area a WHERE a.name = :area)",
+				value = "SELECT * FROM statistic WHERE area_id = :area",
 				nativeQuery = true)
-		List<Statistic> findByArea(@Param("area") String area);
+		List<Statistic> findByArea(@Param("area") int area);
 }
