@@ -10,5 +10,12 @@ BEGIN
       ('FoodArea', 1.340798, 103.962096, 'Love Pal', 'https://s3-ap-southeast-1.amazonaws.com/floating-forest/lovepal.jpg', 'https://s3-ap-southeast-1.amazonaws.com/floating-forest/lovepalheader.jpg'),
       ('FoodArea', 1.340798, 103.962096, 'Crooked Cooks', 'https://s3-ap-southeast-1.amazonaws.com/floating-forest/crookedcooks.jpg', 'https://s3-ap-southeast-1.amazonaws.com/floating-forest/crookedcooksheader.jpg');
   END IF;
+
+  IF NOT EXISTS (SELECT 1 from area WHERE dtype = 'MeetingArea' ) THEN
+    INSERT INTO area ( dtype, latitude, longitude, name,  meeting_category, image, header_image) VALUES 
+      ('MeetingArea', 1.340761, 103.962566, 'Library (1st floor)', 'library', 'https://s3-ap-southeast-1.amazonaws.com/floating-forest/library_level1.jpg', 'https://s3-ap-southeast-1.amazonaws.com/floating-forest/library_level1.jpg'),
+      ('MeetingArea', 1.340761, 103.962566, 'Library (2nd floor)', 'library', 'https://s3-ap-southeast-1.amazonaws.com/floating-forest/library_level2.jpg', 'https://s3-ap-southeast-1.amazonaws.com/floating-forest/library_level2.jpg'),
+      ('MeetingArea', 1.340761, 103.962566, 'Library (3rd floor)', 'library', 'https://s3-ap-southeast-1.amazonaws.com/floating-forest/library_level3.jpg', 'https://s3-ap-southeast-1.amazonaws.com/floating-forest/library_level3.jpg');
+  END IF;
 END;
 $$

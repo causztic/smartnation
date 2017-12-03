@@ -1,0 +1,1 @@
+ALTER TABLE Area ADD COLUMN meeting_category varchar(256);
