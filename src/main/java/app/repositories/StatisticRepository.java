@@ -18,4 +18,10 @@ public interface StatisticRepository extends PagingAndSortingRepository<Statisti
 				value = "SELECT * FROM statistic WHERE area_id = :area",
 				nativeQuery = true)
 		List<Statistic> findByArea(@Param("area") int area);
+		
+		@RestResource
+		@Query(
+				value = "SELECT * FROM statistic WHERE data_date BETWEEN :to AND :from ",
+				nativeQuery = true)
+		List<Statistic> findBetweenDates(@Param("to") String to, @Param("from") String from);
 }

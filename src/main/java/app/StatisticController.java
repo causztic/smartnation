@@ -23,4 +23,10 @@ public class StatisticController {
 		List<Statistic> stats = repo.findByArea(area);
 		return new Gson().toJson(stats, new TypeToken<ArrayList<Statistic>>() {}.getType());
 	}
+	
+	@RequestMapping(value="/stats/?from={from}&to={to}", method=RequestMethod.GET, produces="application/json")
+	public String getStatsBetweenDates(@PathVariable String from, @PathVariable String to){
+		List<Statistic> stats = repo.findBetweenDates(to, from);
+		return new Gson().toJson(stats, new TypeToken<ArrayList<Statistic>>() {}.getType());
+	}
 }
