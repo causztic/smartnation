@@ -25,6 +25,7 @@ public abstract class Area {
 	@NotNull
 	private String name;
 	private String image;
+	private String headerImage;
 	
 	@Override
 	public String toString(){

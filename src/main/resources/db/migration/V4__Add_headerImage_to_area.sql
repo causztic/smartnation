@@ -1,0 +1,1 @@
+ALTER TABLE Area ADD COLUMN header_image varchar(256);
