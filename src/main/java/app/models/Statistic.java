@@ -1,6 +1,7 @@
 package app.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -17,18 +18,17 @@ import adapters.StatisticAdapter;
 @Entity
 @Data
 @JsonAdapter(StatisticAdapter.class)
+@NoArgsConstructor
 public class Statistic {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@NotNull
-	private Date data_date;
+	private Date dataDate;
 	
 	@NotNull
 	private int count;
-	private transient double avg_count;
-	private transient Date min_date;
 
 	@NotNull
 	@ManyToOne
@@ -38,7 +38,7 @@ public class Statistic {
 			@MetaValue(targetEntity = MeetingArea.class, value = "MeetingArea") })
 	@JoinColumn(name = "area_id")
 	private Area area;
-	
+
 	@Override
 	public String toString(){
 		return new Gson().toJson(this);

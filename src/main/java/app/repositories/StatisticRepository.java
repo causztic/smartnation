@@ -33,7 +33,7 @@ public interface StatisticRepository extends PagingAndSortingRepository<Statisti
 						+ " AND data_date BETWEEN :from AND :to "
 						+ " GROUP BY grp",
 				nativeQuery = true)
-		List<Object> averagePerHour(@Param("area") int area, 
+		List<Object[]> averagePerHour(@Param("area") int area, 
 				@Param("from") Timestamp from,
 				@Param("to") Timestamp to, 
 				@Param("part") String part);

@@ -14,9 +14,8 @@ public class StatisticAdapter extends TypeAdapter<Statistic>{
     public void write(JsonWriter writer, Statistic value) throws IOException {
         writer.beginObject();
 
-        // writer.name("id").value(value.getId());
-        if (value.getData_date() != null)
-        	writer.name("date").value(value.getData_date().toString());
+        if (value.getDataDate() != null)
+        	writer.name("date").value(value.getDataDate().toString());
         writer.name("count").value(value.getCount());
         writer.endObject();
     }

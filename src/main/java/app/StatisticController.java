@@ -1,12 +1,13 @@
 package app;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +35,16 @@ public class StatisticController {
 				case "hour":
 				case "minute":
 				case "day":
-					List<Object> stats = repo.averagePerHour(area, from, to, part);
-					return new Gson().toJson(stats, new TypeToken<ArrayList<Statistic>>() {}.getType());
+					List<Object[]> stats = repo.averagePerHour(area, from, to, part);
+					List<Map<String, Object>> convertedStats = new ArrayList<>(stats.size());
+					for (Object[] stat: stats){
+						Map<String, Object> statItem = new HashMap<>();
+						statItem.put("avg_count", Math.round(((BigDecimal)stat[0]).doubleValue() * 100.0) / 100.0);
+						statItem.put("date", stat[1]);
+						statItem.put("interval", stat[2]);
+						convertedStats.add(statItem);
+					}
+					return new Gson().toJson(convertedStats, new TypeToken<ArrayList<Object>>() {}.getType());
 				default:
 					throw new IllegalArgumentException("Part has to be either 'hour', 'minute', or 'day'.");
 				}
