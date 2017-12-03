@@ -21,7 +21,19 @@ public interface StatisticRepository extends PagingAndSortingRepository<Statisti
 		
 		@RestResource
 		@Query(
-				value = "SELECT * FROM statistic WHERE data_date BETWEEN :to AND :from ",
+				value = "SELECT * FROM statistic WHERE area_id = :area AND data_date BETWEEN :to AND :from ",
 				nativeQuery = true)
-		List<Statistic> findBetweenDates(@Param("to") String to, @Param("from") String from);
+		List<Statistic> findBetweenDates(@Param("area") int area, @Param("to") String to, @Param("from") String from);
+		
+		@RestResource
+		@Query(
+				value = "SELECT AVG(count), date_part(:part, data_date) as grp"
+						+ " FROM statistic WHERE area_id = :area "
+						+ " AND data_date BETWEEN :to AND :from "
+						+ " GROUP BY grp",
+				nativeQuery = true)
+		List<Statistic> averagePerHour(@Param("area") int area, 
+				@Param("to") String to, 
+				@Param("from") String from,
+				@Param("part") String part);
 }
