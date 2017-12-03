@@ -1,5 +1,6 @@
 package app.repositories;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -23,7 +24,7 @@ public interface StatisticRepository extends PagingAndSortingRepository<Statisti
 		@Query(
 				value = "SELECT * FROM statistic WHERE area_id = :area AND data_date BETWEEN :to AND :from ",
 				nativeQuery = true)
-		List<Statistic> findBetweenDates(@Param("area") int area, @Param("to") String to, @Param("from") String from);
+		List<Statistic> findBetweenDates(@Param("area") int area, @Param("from") Timestamp from, @Param("to") Timestamp to);
 		
 		@RestResource
 		@Query(
@@ -33,7 +34,7 @@ public interface StatisticRepository extends PagingAndSortingRepository<Statisti
 						+ " GROUP BY grp",
 				nativeQuery = true)
 		List<Statistic> averagePerHour(@Param("area") int area, 
-				@Param("to") String to, 
-				@Param("from") String from,
+				@Param("to") Timestamp to, 
+				@Param("from") Timestamp from,
 				@Param("part") String part);
 }
