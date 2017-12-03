@@ -17,7 +17,11 @@ https://projectlombok.org/download
 
 ## Endpoints
 ```/classes```
+
 ```/classes/{klass}```
+
 ```/classes/{klass}/this_week```
+
 ```/area/{type}```, where type is **food** or **meeting**
+
 ```/stats/{area_id}?[from,to,part]```, where from and to are timestamps, and part is **hour**, **day** or **minute** 
