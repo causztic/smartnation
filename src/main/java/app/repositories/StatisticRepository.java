@@ -13,7 +13,7 @@ import app.models.Statistic;
 
 @RepositoryRestResource
 public interface StatisticRepository extends PagingAndSortingRepository<Statistic, Long>{
-		
+
 		@RestResource
 		@Query(
 				value = "SELECT * FROM statistic WHERE area_id = :area",

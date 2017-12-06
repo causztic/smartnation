@@ -9,9 +9,11 @@ import javax.validation.constraints.NotNull;
 import com.google.gson.Gson;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public abstract class Area {
 	
 	@Id
@@ -26,6 +28,10 @@ public abstract class Area {
 	private String name;
 	private String image;
 	private String headerImage;
+	
+	public Area(long id){
+		this.id = id;
+	}
 	
 	@Override
 	public String toString(){

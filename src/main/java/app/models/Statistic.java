@@ -39,6 +39,12 @@ public class Statistic {
 	@JoinColumn(name = "area_id")
 	private Area area;
 
+	public Statistic(Date dataDate, int count, Area area){
+		this.dataDate = dataDate;
+		this.count = count;
+		this.area = area;
+	}
+	
 	@Override
 	public String toString(){
 		return new Gson().toJson(this);
