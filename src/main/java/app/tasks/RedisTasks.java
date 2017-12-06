@@ -3,12 +3,13 @@ package app.tasks;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PostLoad;
 import javax.persistence.Query;
 
 import org.slf4j.Logger;
@@ -45,15 +46,13 @@ public class RedisTasks {
 		
 	}
 	
-	// this does not work yet
-    @PostConstruct
+    @PostLoad
     public void onStartup() {
        updateDBFromRedis();
     }
     
     
-    //@Scheduled(cron="0 0 * * * *")
-    @Scheduled(fixedRate=10000)
+    @Scheduled(cron="0 0 * * * *")
     public void onSchedule(){
     	updateDBFromRedis();
     }
@@ -67,14 +66,19 @@ public class RedisTasks {
 
     	connection = client.connect();
     	RedisCommands<String, String> cmd = connection.sync();
-    	KeyScanCursor<String> cursor = cmd.scan(ScanArgs.Builder.limit(100).match("stats:*"));
-    	getValuesFromKeys(cursor.getKeys());
-    	
-    	while (!cursor.isFinished()){
-    		// move the cursor
-    		cursor = cmd.scan(cursor);
-        	getValuesFromKeys(cursor.getKeys());
+    	try {
+	    	KeyScanCursor<String> cursor = cmd.scan(ScanArgs.Builder.limit(100).match("stats:*"));
+	    	getValuesFromKeys(cursor.getKeys());
+	    	
+	    	while (!cursor.isFinished()){
+	    		// move the cursor
+	    		cursor = cmd.scan(cursor);
+	        	getValuesFromKeys(cursor.getKeys());
+	    	}
     	}
+	    catch (IllegalArgumentException iae){
+	    	log.info("No keys were found.");
+	    }
     	
     	connection.close();
 //    	client.shutdown();
@@ -96,9 +100,19 @@ public class RedisTasks {
 	public void getValuesFromKeys(List<String> keys){
 		// get all name and id from postgres
 		Map<String, Object[]> hm = getIdAndName();
-		for (String key: keys){
+		Iterator<String> it = keys.iterator();
+		while (it.hasNext()){
+			String key = it.next();
+		
 			String[] keyParts = key.split(":");
 			Integer value = Integer.parseInt(connection.sync().get(key));
+			
+			if (keyParts[2].equals("latest")){
+				// remove this item from the list. We won't store it.
+				it.remove();
+				continue;
+			}
+			
 			long milliseconds = Long.parseLong(keyParts[2]);
 			
 			Object[] item = hm.get(keyParts[1]);
@@ -110,5 +124,7 @@ public class RedisTasks {
 				repo.save(s);
 			}
 		}
+		// flush redis
+		connection.sync().del(keys.toArray(new String[keys.size()]));
 	}
 }
