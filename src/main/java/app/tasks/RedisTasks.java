@@ -33,8 +33,9 @@ import io.lettuce.core.api.sync.RedisCommands;
 public class RedisTasks {
     private static final Logger log = LoggerFactory.getLogger(RedisTasks.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-    private static final RedisClient client = RedisClient.create("redis://localhost");
+    private static RedisClient client;
     private StatefulRedisConnection<String, String> connection;
+    
     
     @Autowired
     StatisticRepository repo;
@@ -43,7 +44,10 @@ public class RedisTasks {
     private EntityManager em;
     
 	public RedisTasks(){
-		
+		if (System.getenv("REDISTOGO_URL") == null)
+			client = RedisClient.create("redis://localhost");
+		else
+			client = RedisClient.create(System.getenv("REDISTOGO_URL"));
 	}
 	
     @PostLoad
