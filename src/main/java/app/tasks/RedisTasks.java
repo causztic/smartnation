@@ -57,6 +57,7 @@ public class RedisTasks {
     
     
     @Scheduled(cron="0 0 * * * *")
+    //@Scheduled(fixedRate = 5000)
     public void onSchedule(){
     	updateDBFromRedis();
     }
@@ -71,7 +72,7 @@ public class RedisTasks {
     	connection = client.connect();
     	RedisCommands<String, String> cmd = connection.sync();
     	try {
-	    	KeyScanCursor<String> cursor = cmd.scan(ScanArgs.Builder.limit(100).match("stats:*"));
+	    	KeyScanCursor<String> cursor = cmd.scan(ScanArgs.Builder.limit(100).match("stat:*"));
 	    	getValuesFromKeys(cursor.getKeys());
 	    	
 	    	while (!cursor.isFinished()){
@@ -81,6 +82,7 @@ public class RedisTasks {
 	    	}
     	}
 	    catch (IllegalArgumentException iae){
+	    	iae.printStackTrace();
 	    	log.info("No keys were found.");
 	    }
     	
