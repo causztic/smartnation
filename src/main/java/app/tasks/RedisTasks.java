@@ -82,7 +82,7 @@ public class RedisTasks {
 	    	}
     	}
 	    catch (IllegalArgumentException iae){
-	    	iae.printStackTrace();
+	    	//iae.printStackTrace();
 	    	log.info("No keys were found.");
 	    }
     	
