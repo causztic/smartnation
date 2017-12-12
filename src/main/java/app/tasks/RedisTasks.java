@@ -33,7 +33,7 @@ import io.lettuce.core.api.sync.RedisCommands;
 public class RedisTasks {
     private static final Logger log = LoggerFactory.getLogger(RedisTasks.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-    private static RedisClient client;
+    public static RedisClient client;
     private StatefulRedisConnection<String, String> connection;
     
     
