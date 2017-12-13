@@ -24,6 +24,7 @@ public class DashboardController {
 		StatefulRedisConnection<String, String> connection = RedisTasks.client.connect();
 		String result = connection.sync().get("stat:Canteen:latest");
 		model.addAttribute("canteen", result);
+		connection.close();
 		return "stats";
 	}
 }
